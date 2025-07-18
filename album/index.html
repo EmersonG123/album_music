@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Álbum Premium Para Ti ❤️</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@300;400;600;700&family=Dancing+Script:wght@700&display=swap');
+        
+        :root {
+            --primary: #ff6b81;
+            --primary-light: #ff8fa3;
+            --secondary: #ff4757;
+            --light: #fff1f2;
+            --lighter: #fff9fa;
+            --dark: #2f3542;
+            --dark-light: #57606f;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 15px 35px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s ease;
+            --border-radius: 18px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #fdf2f4 0%, #fce8eb 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+            position: relative;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--primary);
+            font-size: 4rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(to right, #ff6b81, #ff4757);
+            
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, #ff6b81, #ff4757);
+            border-radius: 3px;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--dark-light);
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+        
+        .heart {
+            color: var(--primary);
+            animation: pulse 1.5s infinite;
+            display: inline-block;
+            margin: 0 5px;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+        
+        .album-cover {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 8px solid white;
+            box-shadow: 0 10px 30px rgba(255, 107, 129, 0.3);
+            margin: 30px auto;
+            display: block;
+            transition: var(--transition);
+        }
+        
+        .album-cover:hover {
+            transform: rotate(5deg) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 107, 129, 0.4);
+        }
+        
+        .songs-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .song-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .song-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .song-header {
+            padding: 25px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .song-number {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .song-title {
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+            font-weight: 600;
+            padding-right: 40px;
+            line-height: 1.3;
+        }
+        
+        .song-artist {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+        
+        .song-heart {
+            position: absolute;
+            right: 25px;
+            top: 25px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.2);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .song-heart:hover {
+            transform: scale(1.1);
+        }
+        
+        .song-heart.liked {
+            color: #ff0000;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .audio-player {
+            width: 100%;
+            padding: 20px;
+            background: var(--lighter);
+            position: relative;
+        }
+        
+        audio {
+            width: 100%;
+            outline: none;
+            border-radius: 10px;
+        }
+        
+        /* Estilos personalizados para el reproductor de audio */
+        audio::-webkit-media-controls-panel {
+            background: linear-gradient(to right, #ff8fa3, #ff6b81);
+            border-radius: 10px;
+        }
+        
+        audio::-webkit-media-controls-play-button,
+        audio::-webkit-media-controls-mute-button {
+            background-color: white;
+            border-radius: 50%;
+        }
+        
+        audio::-webkit-media-controls-current-time-display,
+        audio::-webkit-media-controls-time-remaining-display {
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .lyrics-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            background: var(--lighter);
+        }
+        
+        .bear-animation {
+            font-size: 3.5rem;
+            padding: 30px;
+            animation: dance 2s infinite;
+            text-align: center;
+        }
+        
+        @keyframes dance {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(10deg) scale(1.1); }
+            50% { transform: rotate(-10deg) scale(1.05); }
+            75% { transform: rotate(5deg) scale(1.1); }
+        }
+        
+        .show-lyrics {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to right, var(--primary-light), var(--primary));
+            border: none;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .show-lyrics:hover {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+        
+        .show-lyrics::after {
+            content: "▼";
+            margin-left: 10px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        
+        .show-lyrics.active::after {
+            content: "▲";
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 70px;
+            padding: 30px;
+            color: var(--dark-light);
+            font-size: 1rem;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--primary), transparent);
+        }
+        
+        .dedication {
+            font-style: italic;
+            margin: 40px auto;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            max-width: 700px;
+            position: relative;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .dedication::before, .dedication::after {
+            content: "❤️";
+            font-size: 2rem;
+            position: absolute;
+            opacity: 0.7;
+        }
+        
+        .dedication::before {
+            left: 15px;
+            top: 15px;
+        }
+        
+        .dedication::after {
+            right: 15px;
+            bottom: 15px;
+        }
+        
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .heart-shape {
+            position: absolute;
+            font-size: 20px;
+            color: rgba(255, 107, 129, 0.3);
+            animation: float 15s linear infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Nuevos estilos para controles */
+        .song-controls {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background: var(--lighter);
+        }
+        
+        .control-btn {
+            background: linear-gradient(to right, var(--primary-light), var(--primary));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(255, 107, 129, 0.3);
+        }
+        
+        .control-btn:hover {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            transform: translateY(-2px);
+        }
+        
+        .download-btn {
+            background: linear-gradient(to right, #4CAF50, #2E7D32);
+        }
+        
+        .download-btn:hover {
+            background: linear-gradient(to right, #2E7D32, #1B5E20);
+        }
+        
+        .skip-btn {
+            background: linear-gradient(to right, #2196F3, #1565C0);
+        }
+        
+        .skip-btn:hover {
+            background: linear-gradient(to right, #1565C0, #0D47A1);
+        }
+        
+        .controls-container {
+            display: flex;
+            gap: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .songs-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .album-cover {
+                width: 180px;
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts" id="floating-hearts"></div>
+    
+    <div class="container">
+        <header>
+            <h1>Álbum Especial <span class="heart">❤️</span></h1>
+            <p class="subtitle">Una colección de canciones seleccionadas para ti</p>
+            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Álbum cover" class="album-cover">
+        </header>
+        
+        <div class="dedication">
+            Cada nota musical en este álbum fue elegida pensando en ti. Que estas canciones te acompañen como me gustaría acompañarte yo. Disfruta de esta selección hecha con todo mi cariño.
+        </div>
+        
+        <div class="songs-container" id="songs-container">
+            <!-- Las canciones se cargarán aquí con JavaScript -->
+        </div>
+        
+        <footer>
+            <p>Hecho con <i class="fas fa-heart" style="color: var(--primary);"></i> para ti - <span id="current-year"></span></p>
+        </footer>
+    </div>
+
+    <script>
+        // Lista de canciones con nombres reales
+        const songs = [
+            { file: "../canciones/3am - alba.mp3" },
+            { file: "../canciones/3AM - SI ALGÚN DÍA TE PIERDO (Visualizer).mp3" },
+            { file: "../canciones/3AM, Andrea Ferrero - Quédate (Videoletra).mp3" },
+            { file: "../canciones/Ali Gatie - It's You (Official Lyrics Video).mp3" },
+            { file: "../canciones/Andrés Cepeda, Sebastian Yatra - Magia (Letra).mp3" },
+            { file: "../canciones/Ariana Grande, Justin Bieber - Stuck with U (Official Lyric Video).mp3" },
+            { file: "../canciones/Bruno Mars - Just The Way You Are (Official Music Video).mp3" },
+            { file: "../canciones/Christina Perri - A Thousand Years [Official Music Video].mp3" },
+            { file: "../canciones/Cian Ducrot - Part Of Me.mp3" },
+            { file: "../canciones/DJ Snake - Let Me Love You ft. Justin Bieber.mp3" },
+            { file: "../canciones/Ed Sheeran - Perfect (Official Music Video).mp3" },
+            { file: "../canciones/Ed Sheeran - Photograph (Lyrics).mp3" },
+            { file: "../canciones/Ed Sheeran - Thinking out Loud.mp3" },
+            { file: "../canciones/Ellie Goulding - Love Me Like You Do (Lyrics).mp3" },
+            { file: "../canciones/James Arthur - Cars Out side (sub. español).mp3" },
+            { file: "../canciones/James Arthur - Say You Won't Let Go (Lyrics).mp3" },
+            { file: "../canciones/James Arthur y Anne Marie - Rewrite the Stars.mp3" },
+            { file: "../canciones/James Blunt - You're Beautiful (Official Music Video) [4K].mp3" },
+            { file: "../canciones/Jason Mraz - I'm Yours (Official Video) [4K Remaster].mp3" },
+            { file: "../canciones/Jay Wheeler - Aiunii (Official Visualizer).mp3" },
+            { file: "../canciones/Jay Wheeler - Amor De Febrero.mp3" },
+            { file: "../canciones/Jay Wheeler - Dime Que Si (Cover Audio).mp3" },
+            { file: "../canciones/Jay Wheeler - Duele (Official Video).mp3" },
+            { file: "../canciones/Jay Wheeler - EaZt (Official Video).mp3" },
+            { file: "../canciones/Jay Wheeler - Me Enamoré.mp3" },
+            { file: "../canciones/John Legend - All of Me (Lyrics).mp3" },
+            { file: "../canciones/John Legend - All of Me (Official Video).mp3" },
+            { file: "../canciones/Justin Bieber - Anyone (Lyrics).mp3" },
+            { file: "../canciones/Justin Bieber - Lifetime.mp3" },
+            { file: "../canciones/Justin Bieber - My mama don't like you (Love Yourself) (Lyrics).mp3" },
+            { file: "../canciones/Justin Bieber - Purpose (PURPOSE _ The Movement) (Official Music Video).mp3" },
+            { file: "../canciones/Justin Bieber - Somebody (Visualizer).mp3" },
+            { file: "../canciones/Lady Gaga, Bruno Mars - Die With A Smile.mp3" },
+            { file: "../canciones/Lauv - I Like Me Better.mp3" },
+            { file: "../canciones/Lewis Capaldi - Before You Go (Lyrics).mp3" },
+            { file: "../canciones/Lewis Capaldi - Someone You Loved.mp3" },
+            { file: "../canciones/Myles Smith - Stargazing.mp3" },
+            { file: "../canciones/New West - Those Eyes (Lyrics).mp3" },
+            { file: "../canciones/Passenger - Let Her Go (Lyrics) (ft. Ed Sheeran).mp3" }
+        ];
+
+        // Variable para guardar el audio que se está reproduciendo actualmente
+        let currentlyPlayingAudio = null;
+
+        // Función para crear corazones flotantes
+        function createFloatingHearts() {
+            const container = document.getElementById('floating-hearts');
+            const heartCount = 15;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart-shape';
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = 10 + Math.random() * 20 + 's';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.style.fontSize = 15 + Math.random() * 25 + 'px';
+                container.appendChild(heart);
+            }
+        }
+
+        // Función para extraer artista y título del nombre del archivo
+        function extractMetadata(filename) {
+            // Eliminar la extensión .mp3
+            filename = filename.replace('.mp3', '');
+            
+            // Eliminar texto entre paréntesis y corchetes
+            filename = filename.replace(/\(.*?\)/g, '').replace(/\[.*?\]/g, '').trim();
+            
+            // Eliminar caracteres especiales al final
+            filename = filename.replace(/[^\w\sáéíóúüñÁÉÍÓÚÜÑ]$/, '').trim();
+            
+            // Dividir por diferentes separadores
+            const separators = [' - ', ' – ', ', ', ' ft. ', ' & ', ' Feat. ', ' feat. '];
+            let artist = 'Artista';
+            let title = filename;
+            
+            for (const sep of separators) {
+                if (filename.includes(sep)) {
+                    const parts = filename.split(sep);
+                    artist = parts[0].trim();
+                    title = parts.slice(1).join(sep).trim();
+                    break;
+                }
+            }
+            
+            // Limpieza adicional
+            title = title.replace(/official|video|lyrics|visualizer|sub español|letra|lyric|sub. español/gi, '').trim();
+            title = title.replace(/\s+/g, ' ').trim();
+            
+            return { artist, title };
+        }
+
+        // Función para descargar archivos
+        function downloadFile(url, filename) {
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename || 'descarga.mp3';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        // Función para saltar a la siguiente canción
+        function skipToNextSong(currentAudio) {
+            const allAudioElements = document.querySelectorAll('audio');
+            let currentIndex = -1;
+            
+            // Encontrar el índice del audio actual
+            allAudioElements.forEach((audio, index) => {
+                if (audio === currentAudio) {
+                    currentIndex = index;
+                }
+            });
+            
+            // Si encontramos el audio actual y no es el último
+            if (currentIndex !== -1 && currentIndex < allAudioElements.length - 1) {
+                // Pausar el audio actual
+                currentAudio.pause();
+                
+                // Reproducir el siguiente audio
+                const nextAudio = allAudioElements[currentIndex + 1];
+                nextAudio.currentTime = 0;
+                nextAudio.play();
+                
+                // Actualizar el audio que se está reproduciendo
+                currentlyPlayingAudio = nextAudio;
+                
+                // Desplazar la vista al siguiente elemento
+                nextAudio.closest('.song-card').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }
+        }
+
+        // Función para manejar la reproducción de audio
+        function handleAudioPlay(newAudio) {
+            // Si hay un audio reproduciéndose y no es el mismo que el nuevo
+            if (currentlyPlayingAudio && currentlyPlayingAudio !== newAudio) {
+                // Pausar el audio que se estaba reproduciendo
+                currentlyPlayingAudio.pause();
+                currentlyPlayingAudio.currentTime = 0;
+            }
+            
+            // Actualizar el audio que se está reproduciendo
+            currentlyPlayingAudio = newAudio;
+        }
+
+        // Función para cargar las canciones
+        function loadSongs() {
+            const container = document.getElementById('songs-container');
+            
+            songs.forEach((song, index) => {
+                // Extraer nombre del archivo sin la ruta
+                const filename = song.file.split('/').pop();
+                const { artist, title } = extractMetadata(filename);
+                
+                const songCard = document.createElement('div');
+                songCard.className = 'song-card';
+                songCard.innerHTML = `
+                    <div class="song-header">
+                        <span class="song-number">${index + 1}</span>
+                        <h3 class="song-title">${title}</h3>
+                        <p class="song-artist">${artist}</p>
+                        <span class="song-heart">❤️</span>
+                    </div>
+                    <div class="audio-player">
+                        <audio controls id="audio-${index}">
+                            <source src="${song.file}" type="audio/mpeg">
+                            Tu navegador no soporta el elemento de audio.
+                        </audio>
+                    </div>
+                    <div class="song-controls">
+                        <div class="controls-container">
+                            <button class="control-btn skip-btn" title="Saltar a la siguiente canción">
+                                <i class="fas fa-step-forward"></i>
+                            </button>
+                        </div>
+                        <button class="control-btn download-btn" title="Descargar canción">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                    <button class="show-lyrics">
+                        <i class="fas fa-music"></i> Ver Sorpresa
+                    </button>
+                    <div class="lyrics-container">
+                        <div class="bear-animation">
+                            🐻❤️<BR>Esta canción fue elegida para ti
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(songCard);
+                
+                // Obtener el elemento de audio
+                const audioElement = songCard.querySelector('audio');
+                
+                // Añadir evento de play para manejar la reproducción
+                audioElement.addEventListener('play', () => {
+                    handleAudioPlay(audioElement);
+                });
+                
+                // Añadir evento de descarga
+                const downloadBtn = songCard.querySelector('.download-btn');
+                downloadBtn.addEventListener('click', () => {
+                    downloadFile(song.file, filename);
+                });
+                
+                // Añadir evento de skip
+                const skipBtn = songCard.querySelector('.skip-btn');
+                skipBtn.addEventListener('click', () => {
+                    skipToNextSong(audioElement);
+                });
+            });
+            
+            // Añadir eventos para los botones de letra
+            const lyricButtons = document.querySelectorAll('.show-lyrics');
+            lyricButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const lyricsContainer = this.nextElementSibling;
+                    lyricsContainer.style.maxHeight = lyricsContainer.style.maxHeight ? null : `${lyricsContainer.scrollHeight}px`;
+                    this.classList.toggle('active');
+                });
+            });
+            
+            // Añadir eventos para los corazones
+            const hearts = document.querySelectorAll('.song-heart');
+            hearts.forEach(heart => {
+                heart.addEventListener('click', function() {
+                    this.classList.toggle('liked');
+                    if (this.classList.contains('liked')) {
+                        this.innerHTML = '❤️';
+                    } else {
+                        this.innerHTML = '🤍';
+                    }
+                });
+            });
+        }
+        
+        // Actualizar el año actual
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Cargar las canciones cuando la página esté lista
+        window.addEventListener('DOMContentLoaded', () => {
+            createFloatingHearts();
+            loadSongs();
+        });
+    </script>
+</body>
+</html>
